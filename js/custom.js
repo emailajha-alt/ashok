@@ -170,23 +170,38 @@ Assigned to: ThemeForest
 	
 	/*------------------------------------------------------------------*/ 
 	// Start isotop gallery js 
-		isotop_gallery: function() {
-			if($('.gallery_grid').length > 0){
-				$('.gallery_grid').isotope({
-						itemSelector: '.grid-item',
-						filter: '*'
-					});
-					$('.port_project_gallery > .gallery_nav > ul > li').on( 'click', 'a', function() {
-						// filter button click
-						var filterValue = $( this ).attr('data-filter');
-						$('.gallery_grid').isotope({ filter: filterValue });
+		isotop_gallery: function () {
+    if ($('.gallery_grid').length > 0) {
 
-						//active class added
-						$('a').removeClass('gallery_active');
-						$(this).addClass('gallery_active');
-					});
-			}
-		},
+        var $grid = $('.gallery_grid');
+
+        $grid.imagesLoaded(function () {
+
+            $grid.isotope({
+                itemSelector: '.grid-item',
+                percentPosition: true,
+                masonry: {
+                    columnWidth: '.grid-item'
+                }
+            });
+
+        });
+
+        $('.port_project_gallery > .gallery_nav > ul > li').on('click', 'a', function () {
+
+            var filterValue = $(this).attr('data-filter');
+
+            $grid.isotope({
+                filter: filterValue
+            });
+
+            $('.gallery_nav a').removeClass('gallery_active');
+            $(this).addClass('gallery_active');
+
+        });
+
+    }
+},
 	/*------------------------------------------------------------------*/ 
 	
 	// magnifiv popup for project gallery
